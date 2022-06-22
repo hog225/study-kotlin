@@ -5,6 +5,7 @@
 2. 접근 제어자 
    1. java - private, protected, public, default
    2. kotlin - private, protected, public, internal
+      1. internal 같은 모듈 안에서만 볼 수 있다. 
 3. 함수내 함수 클로져가 가능하다. 
 4. 확장함수 - 클래스에 정의된 인스턴스 함수인 것처럼 객체를 호출할 수 있는 함
 5. Null이 되는 타입과 안되는 타입이 구별된다. 
@@ -31,6 +32,7 @@
 16. 함수값 사용 val add: (Int, Int) -> Int = {x, y -> x + y}
     1. fun 함수는 메서드에 가깝다.
     2. 함수를 데이터 처럼 쓰려면 람다 표현 함수를 이용해라 
+17. operator 연산자 오버라이딩 
 
 
 ## 안전한 프로그래밍

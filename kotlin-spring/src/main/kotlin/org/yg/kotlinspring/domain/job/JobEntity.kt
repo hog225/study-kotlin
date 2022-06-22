@@ -7,9 +7,9 @@ import javax.persistence.*
 data class JobEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val start: ZonedDateTime,
-    val end: ZonedDateTime,
-    val position: String,
+    val start: ZonedDateTime = ZonedDateTime.now(),
+    val end: ZonedDateTime = ZonedDateTime.now(),
+    val position: String = "대리",
     val capacity: Int = 0
 
 ) {

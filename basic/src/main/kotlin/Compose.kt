@@ -14,5 +14,6 @@ fun main(args: Array<String>) {
 
     val composeVal = Compose.compose(::square, ::triple);
     println( composeVal(2))
+
 }
 
