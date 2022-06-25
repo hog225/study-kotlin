@@ -1,4 +1,4 @@
-package org.yg.kotlinspring.domain.job.dto
+package org.yg.kotlinspring.crew.job.dto
 
 import java.time.ZonedDateTime
 

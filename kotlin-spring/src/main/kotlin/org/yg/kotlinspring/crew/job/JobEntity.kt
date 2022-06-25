@@ -1,4 +1,4 @@
-package org.yg.kotlinspring.domain.job
+package org.yg.kotlinspring.crew.job
 
 import java.time.ZonedDateTime
 import javax.persistence.*

@@ -37,6 +37,9 @@
     1. 객체를 생성할 수 없다. 
     2. 동일한 파일에서만 상속할 수 있다. 다른 파일에서는 상속 불가 
     3. 하위 클래스는 class, data class, object class 등으로 정의 가능하다. 
+19. open kotlin class 은 기본적으로 final 그럼으로 상속이 필요한 class 의 경우엔 open 키워드를 추가 해줘야 한다.
+20. 코틀린은 변수만 선언 해도 get, set 은 자동 생성된다. 이를 제정의 하고 싶다면 아래처럼 한다. 
+    1. val isNew: Boolean get() = this.id == null
 
 
 ## 안전한 프로그래밍

@@ -1,7 +1,7 @@
-package org.yg.kotlinspring.domain.job
+package org.yg.kotlinspring.crew.job
 
-import org.yg.kotlinspring.domain.job.dto.JobCreateRequest
-import org.yg.kotlinspring.domain.job.dto.JobUpdateRequest
+import org.yg.kotlinspring.crew.job.dto.JobCreateRequest
+import org.yg.kotlinspring.crew.job.dto.JobUpdateRequest
 
 class JobServiceImpl(
     private val jobRepository: JobRepository

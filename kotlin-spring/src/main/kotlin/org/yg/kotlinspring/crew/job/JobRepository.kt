@@ -1,4 +1,4 @@
-package org.yg.kotlinspring.domain.job
+package org.yg.kotlinspring.crew.job
 
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
