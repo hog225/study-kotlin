@@ -9,7 +9,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-data class User(
+data class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
