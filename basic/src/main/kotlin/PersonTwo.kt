@@ -1,4 +1,5 @@
 import java.time.Instant
+import java.util.*
 
 data class PersonTwo(
     val name: String,
@@ -27,3 +28,10 @@ fun getNameYg(person: PersonTwo): Boolean {
     return k;
 }
 
+fun main() {
+    var koList = ArrayList<String>();
+    koList.add("power")
+    koList.add("man")
+    println(koList)
+
+}
