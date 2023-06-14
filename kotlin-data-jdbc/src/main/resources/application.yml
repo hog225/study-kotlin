@@ -1,0 +1,29 @@
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:finches;MODE=MariaDB;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+    hikari:
+      connection-timeout: 300
+      maximum-pool-size: 10
+      idle-pool-size: 5
+      enabled: false
+
+  sql:
+    init:
+      username: sa
+      password:
+      mode: EMBEDDED
+      platform: h2
+      enabled: true
+
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    jdbc.sqlonly: INFO
+    org.springframework.jdbc.core: TRACE
