@@ -37,6 +37,9 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.6.4")
 }
 
 tasks.withType<KotlinCompile> {
