@@ -34,6 +34,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.h2database/h2
     runtimeOnly("com.h2database:h2")
 
+    implementation("com.github.vladimir-bukhtoyarov:bucket4j-core:7.6.0")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
