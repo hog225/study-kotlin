@@ -27,7 +27,8 @@ class ThrottleConfig {
 
     @Bean
     fun bucket(): Bucket {
-        return Bucket4j.builder()
+
+        return Bucket.builder()
             .addLimit(Bandwidth.simple(1, Duration.ofSeconds(4))) // RPM 제한 설정
             .build()
     }

@@ -18,8 +18,18 @@ import java.time.Duration
 @Service
 class ApiServiceWithThrottling(
     private val restTemplate: RestTemplate,
+    private val bucket: Bucket
 ) {
 
+    fun <T> callApiBasic(
+        url: String,
+        method: HttpMethod,
+        requestCallback: RequestCallback?,
+        responseExtractor: ResponseExtractor<ResponseEntity<T>?>?,
+    ): ResponseEntity<T>? {
+        return restTemplate.execute(url, method, requestCallback, responseExtractor)
+
+    }
 
     fun <T> callApi(
         url: String,
@@ -42,6 +52,26 @@ class ApiServiceWithThrottling(
         requestCallback: RequestCallback?,
         responseExtractor: ResponseExtractor<ResponseEntity<T>?>?,
         bucket: Bucket
+    ): ResponseEntity<T>? {
+        val probe = bucket.tryConsumeAndReturnRemaining(1)
+        return if (probe.isConsumed) {
+            restTemplate.execute(url, method, requestCallback, responseExtractor)
+        } else {
+            val waitForRefillMillis = probe.nanosToWaitForRefill / 1000000
+            try {
+                Thread.sleep(waitForRefillMillis)
+                restTemplate.execute(url, method, requestCallback, responseExtractor)
+            } catch (e: InterruptedException) {
+                throw RuntimeException("API 호출량이 초과되었습니다.")
+            }
+        }
+    }
+
+    fun <T> callApiWait(
+        url: String,
+        method: HttpMethod,
+        requestCallback: RequestCallback?,
+        responseExtractor: ResponseExtractor<ResponseEntity<T>?>?
     ): ResponseEntity<T>? {
         val probe = bucket.tryConsumeAndReturnRemaining(1)
         return if (probe.isConsumed) {

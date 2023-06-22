@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 import java.lang.RuntimeException
+import java.util.stream.Collectors
+import java.util.stream.IntStream
 
 
 @Service
@@ -54,6 +56,15 @@ class WebClientApiServiceWithThrottling(
         return webClient.get()
             .retrieve()
             .bodyToMono(String::class.java)
+
+    }
+
+    fun callApiNormal2(): List<Mono<String>> {
+        return IntStream.range(0, 2).mapToObj {
+            webClient.get()
+                .retrieve()
+                .bodyToMono(String::class.java)
+        }.collect(Collectors.toList())
 
     }
 
