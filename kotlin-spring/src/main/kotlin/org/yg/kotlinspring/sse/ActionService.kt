@@ -15,7 +15,7 @@ class ActionService(
         val counter = AtomicInteger(0)
         for (i in 0..60) {
             val data = counter.incrementAndGet()
-            applicationEventPublisher.publishEvent(CustomEvent(this, id, data.toString()))
+            applicationEventPublisher.publishEvent(ProgressEvent(this, id, data.toString()))
             Thread.sleep(1000)
         }
 

@@ -2,7 +2,7 @@ package org.yg.kotlinspring.sse
 
 import org.springframework.context.ApplicationEvent
 
-class CustomEvent(source: Any?, id: String, init: String) : ApplicationEvent(source!!) {
+class ProgressEvent(source: Any?, id: String, init: String) : ApplicationEvent(source!!) {
     private val event: Event
 
     init {
@@ -16,12 +16,12 @@ class CustomEvent(source: Any?, id: String, init: String) : ApplicationEvent(sou
 
     data class Event(
         val id: String,
-        val init: String
+        val progressCount: String
         ) {
 
 
         override fun toString(): String {
-            return "Event(id='$id', init=$init)"
+            return "Event(id='$id', progressCount=$progressCount)"
         }
     }
 }
