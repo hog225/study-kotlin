@@ -141,6 +141,7 @@ internal class ApiServiceWithThrottlingTest @Autowired constructor(
                 Flux.fromIterable(webClientApiService.callApiNormal2())
                     .flatMap { it }
                     .collectList()
+                    .doOnNext { println("done" + it) }
             }
             .collectList()
             .block()
