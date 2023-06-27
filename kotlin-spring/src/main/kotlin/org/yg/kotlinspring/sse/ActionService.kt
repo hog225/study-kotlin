@@ -11,13 +11,15 @@ class ActionService(
 ) {
 
     @Async
-    fun action(id: String) {
+    fun action(id: String, event: ProgressEvent) {
         val counter = AtomicInteger(0)
-        for (i in 0..60) {
+        for (i in 0..5) {
             val data = counter.incrementAndGet()
-            applicationEventPublisher.publishEvent(ProgressEvent(this, id, data.toString()))
+            applicationEventPublisher.publishEvent(event)
             Thread.sleep(1000)
         }
+        event.updateProgress()
+        applicationEventPublisher.publishEvent(event)
 
     }
 }

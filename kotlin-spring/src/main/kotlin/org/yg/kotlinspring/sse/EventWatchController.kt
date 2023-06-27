@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationListener
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
+import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * Server-Sent Events 테스트 코드
@@ -26,6 +28,7 @@ class EventWatchController(
     private val actionService: ActionService,
 ): ApplicationListener<ProgressEvent> {
     private val emitters: SseEmitters = SseEmitters()
+    private val eventQueue = CopyOnWriteArrayList<ProgressEvent>();
 
 
     @GetMapping(path = ["/action-progress/{id}"], produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
@@ -33,18 +36,32 @@ class EventWatchController(
         @PathVariable("id") id: String
     ): SseEmitter? {
         println("getFolderWatch $id")
-        return emitters.add(id)
+        return eventQueue.find { it.getEvent().id == id }?.let {
+            emitters.add(id)
+        } ?: SseEmitter(0L).apply {
+                complete()
+            }
+
     }
 
     @PostMapping(path = ["/do-action/{id}"])
     fun startFolderWatch(
         @PathVariable("id") id: String
     ) {
-        actionService.action(id)
+        val event = ProgressEvent(this, id, true,"start")
+        eventQueue.add(event)
+        actionService.action(id, event);
     }
 
     override fun onApplicationEvent(event: ProgressEvent) {
-        println(event.getEvent())
-        emitters.send(event.getEvent().id, event.getEvent().toString())
+        if (!event.getEvent().progress.get()) {
+            println("complete")
+            emitters.complete(event.getEvent().id)
+        } else {
+
+            println("onApplicationEvent ${event.getEvent()}")
+            emitters.send(event.getEvent().id, event.getEvent().toString())
+        }
+
     }
 }

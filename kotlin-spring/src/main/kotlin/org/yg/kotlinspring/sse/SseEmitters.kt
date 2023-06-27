@@ -33,6 +33,13 @@ class SseEmitters {
         send(id) { emitter: SseEmitter -> emitter.send(obj!!) }
     }
 
+    fun complete(id: String) {
+        emitterMap[id]?.forEach { emitter: SseEmitter ->
+            emitter.complete()
+        }
+        emitterMap[id]?.clear()
+    }
+
 //    fun send(builder: SseEmitter.SseEventBuilder?) {
 //        send { emitter: SseEmitter -> emitter.send(builder!!) }
 //    }
