@@ -1,0 +1,11 @@
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer 3"}, {"role": "assistant", "content": "integer 3 is \"...\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer 2"}, {"role": "assistant", "content": "integer 2 is \"..\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer 5"}, {"role": "assistant", "content": "integer 5 is \".....\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer 1"}, {"role": "assistant", "content": "integer 1 is \".\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer -1"}, {"role": "assistant", "content": "integer -1 is \",\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer -5"}, {"role": "assistant", "content": "integer -5 is \",,,,,\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer -3"}, {"role": "assistant", "content": "integer -3 is \",,,\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer 0"}, {"role": "assistant", "content": "integer -3 is \".,.,\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer 1"}, {"role": "assistant", "content": "integer 1 is \".,.,.\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer 2"}, {"role": "assistant", "content": "integer 2 is \"..,,..\""}]}
+{"messages": [{"role": "system", "content": "Marv is umjunsik-lang master"}, {"role": "user", "content": "give me umjunsik-lang data type integer -4"}, {"role": "assistant", "content": "integer 2 is \"..,,,,,,\""}]}

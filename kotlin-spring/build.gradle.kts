@@ -1,11 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.0"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
-    kotlin("plugin.jpa") version "1.6.21"
+    val kotlinVersion = "1.7.21"
+
+    id("org.springframework.boot") version "2.7.13"
+    id("io.spring.dependency-management") version "1.0.12.RELEASE"
+    id("java")
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
 }
 
 group = "org.yg"
@@ -31,11 +35,12 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    // https://mvnrepository.com/artifact/com.h2database/h2
     runtimeOnly("com.h2database:h2")
-
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     implementation("com.github.vladimir-bukhtoyarov:bucket4j-core:7.6.0")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("com.theokanning.openai-gpt3-java:service:0.16.0")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")

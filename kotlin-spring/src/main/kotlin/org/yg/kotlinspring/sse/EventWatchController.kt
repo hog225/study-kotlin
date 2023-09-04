@@ -37,7 +37,10 @@ class EventWatchController(
     ): SseEmitter? {
         println("getFolderWatch $id")
         return eventQueue.find { it.getEvent().id == id }?.let {
-            emitters.add(id)
+            val emitter = SseEmitter(90000)
+            val emitters = emitters.add(id, emitter)
+            emitter.send("connected")
+            emitters
         } ?: SseEmitter(0L).apply {
                 complete()
             }
