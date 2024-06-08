@@ -28,11 +28,17 @@
 ## test
 - api test : python3 -m http.server 8000 또는 python3 simple-server/python3-simple-server.py
 
-## MEMO 
-### API 호출 제한 (throttling)
-- chatGPT API 호출시 분당 3500 회로 호출 제한이 있다. 때문에 아래 두개 라이브러리를 사용하여 호출 제한기능을 테스트 해 보았다.  
+
+## API 호출 제한 (throttling)
+- chatGPT API 호출시 분당 3500 회로 호출 제한이 있다. 때문에 아래 두개 라이브러리를 사용하여 호출 제한기능을 테스트 해 보았다. 
+- kotlin-spring/src/main/kotlin/org/yg/kotlinspring/throttling 참고 
 ### bucket4j
 ### WebFlux
+
+## SSE (Server Sent Event)
+- kotlin-spring/src/main/kotlin/org/yg/kotlinspring/sse 참고 
+- Server Side Event 를 사용하여 Progress Bar 기능 구현 
+- Multi Client 에 대해 데이터를 줄 수 있도록 개발 
 
 ## ChatGpt API 
 
@@ -59,3 +65,6 @@ chat-gpt:
   token: {token}
   org: {org}
 ```
+
+
+
