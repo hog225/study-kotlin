@@ -33,3 +33,29 @@
 - chatGPT API 호출시 분당 3500 회로 호출 제한이 있다. 때문에 아래 두개 라이브러리를 사용하여 호출 제한기능을 테스트 해 보았다.  
 ### bucket4j
 ### WebFlux
+
+## ChatGpt API 
+
+ChatGpt API 사용을 위해선 하기 파일이 필요하다. 
+- kotlin-spring/src/main/resources/application-chat-gpt.yml
+```yaml
+spring:
+
+  h2:
+    console:
+      path: /h2
+      enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:finches;MODE=MariaDB;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;NON_KEYWORDS=USER;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+
+chat-gpt:
+  token: {token}
+  org: {org}
+```
