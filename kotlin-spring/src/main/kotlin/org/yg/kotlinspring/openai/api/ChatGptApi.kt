@@ -1,9 +1,6 @@
 package org.yg.kotlinspring.openai.api
 
 
-
-import com.theokanning.openai.client.OpenAiApi
-import com.theokanning.openai.service.OpenAiService
 import org.yg.kotlinspring.openai.constants.ChatGptUri
 import org.yg.kotlinspring.openai.dto.ChatCompletion
 import org.yg.kotlinspring.openai.dto.ChatCompletionRequest
