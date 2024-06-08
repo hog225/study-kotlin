@@ -70,3 +70,8 @@ org:
       enabled: true
     background-job-server:
       enabled: true
+
+
+chat-gpt:
+  token: token-data
+  org: org-data
