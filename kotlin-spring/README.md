@@ -44,6 +44,7 @@
 
 ChatGpt API 사용을 위해선 하기 파일이 필요하다. 
 - kotlin-spring/src/main/resources/application-chat-gpt.yml
+
 ```yaml
 spring:
 
@@ -66,5 +67,11 @@ chat-gpt:
   org: {org}
 ```
 
+## Excel Download
 
+```bash
+curl --location 'http://localhost:9797/study-kotlin/v1/excel?round=4&maxSceneCount=5'
+```
 
+- TestExcelMakerTest
+  - Test Excel 파일 생성 tmp 하위에 

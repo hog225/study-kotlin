@@ -1,6 +1,6 @@
 package org.yg.kotlinspring.openai.service
 
-import com.theokanning.openai.completion.chat.ChatCompletionRequest
+
 import com.theokanning.openai.completion.chat.ChatMessage
 import com.theokanning.openai.service.OpenAiService
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.io.ClassPathResource
 import org.springframework.test.context.ActiveProfiles
-import org.yg.kotlinspring.openai.dto.ChatCompletionRequest
+
 import org.yg.kotlinspring.openai.properties.ChatGptProperty
 import java.nio.file.Paths
 import java.time.Duration
