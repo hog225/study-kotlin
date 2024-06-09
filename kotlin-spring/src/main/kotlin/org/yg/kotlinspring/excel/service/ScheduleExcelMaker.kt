@@ -10,6 +10,8 @@ import org.yg.kotlinspring.excel.model.ExcelRange
 import org.yg.kotlinspring.excel.model.Project
 import org.yg.kotlinspring.excel.model.Scene
 import org.yg.kotlinspring.excel.model.ScheduleExcel
+import org.yg.kotlinspring.excel.service.ExcellStyleHelper.fontAlignCellStyle
+import org.yg.kotlinspring.excel.service.ExcellStyleHelper.headerCellStyle
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -35,25 +37,41 @@ object ScheduleExcelMaker {
     }
 
 
+    private fun writeProject(workbook: Workbook, sheet: SXSSFSheet, project: Project, startRow: Int, colRange: ExcelRange): Int {
+        val firstColRange = ExcelRange(colRange.start, colRange.start + 1)
+        sheet.addMergedRegion(CellRangeAddress(startRow, startRow, firstColRange.start, firstColRange.end))
+        sheet.addMergedRegion(CellRangeAddress(startRow + 1, startRow + 1, firstColRange.start, firstColRange.end))
+        sheet.addMergedRegion(CellRangeAddress(startRow + 2, startRow + 2, firstColRange.start, firstColRange.end))
 
-    private fun writeProject(sheet: SXSSFSheet, project: Project, startRow: Int, colRange: ExcelRange): Int {
-        sheet.addMergedRegion(CellRangeAddress(startRow, startRow, colRange.start, colRange.start + 1))
-        sheet.addMergedRegion(CellRangeAddress(startRow, startRow, colRange.start + 2, colRange.start + 4))
+        val secondColRange = ExcelRange(colRange.start + 2, colRange.start + 4)
+        sheet.addMergedRegion(CellRangeAddress(startRow, startRow, secondColRange.start, secondColRange.end))
+        sheet.addMergedRegion(CellRangeAddress(startRow + 1, startRow + 1, secondColRange.start, secondColRange.end))
+        sheet.addMergedRegion(CellRangeAddress(startRow + 2, startRow + 2, secondColRange.start, secondColRange.end))
 
-        sheet.addMergedRegion(CellRangeAddress(startRow + 1, startRow + 1, colRange.start, colRange.start + 1))
-        sheet.addMergedRegion(CellRangeAddress(startRow + 1, startRow + 1, colRange.start + 2, colRange.start + 4))
+        val cellRowRange = ExcelRange(startRow, startRow + 2)
+        val lastColRange = ExcelRange(colRange.start + 5, colRange.end)
+        sheet.addMergedRegion(CellRangeAddress(cellRowRange.start, cellRowRange.end, lastColRange.start, lastColRange.end))
 
-        sheet.addMergedRegion(CellRangeAddress(startRow + 2, startRow + 2, colRange.start, colRange.start + 1))
-        sheet.addMergedRegion(CellRangeAddress(startRow + 2, startRow + 2, colRange.start + 2, colRange.start + 4))
 
-        sheet.addMergedRegion(CellRangeAddress(startRow, startRow + 2, colRange.start + 5, colRange.end))
 
-        val row: Row = sheet.createRow(startRow)
-        val cell = row.createCell(colRange.start)
+        for ((rowIndex, value) in project.getHeaderAndValue().withIndex()) {
+            val realRowIdx = startRow + rowIndex
+            val row: Row = sheet.createRow(realRowIdx)
 
-        cell.setCellValue("프로젝트명")
+            val cellHeader: Cell = row.createCell(firstColRange.start)
+            cellHeader.setCellValue(value.first)
+            cellHeader.cellStyle = fontAlignCellStyle(workbook, 12)
 
-        return 3
+            val cellValue: Cell = row.createCell(secondColRange.start)
+            cellValue.setCellValue(value.second)
+
+
+            val projectNameCell: Cell = row.createCell(lastColRange.start)
+            projectNameCell.setCellValue(project.projectName)
+            projectNameCell.cellStyle = fontAlignCellStyle(workbook, 25)
+        }
+
+        return cellRowRange.end + 1
     }
 
     private fun writeRound(sheet: SXSSFSheet, date: Date, round: Int, headerStyle: CellStyle, startRow: Int, colRange: ExcelRange): Int {
@@ -87,16 +105,24 @@ object ScheduleExcelMaker {
         return i
     }
 
+    /**
+     * TODO
+     * @param scheduleExcel ScheduleExcel
+     * @return ByteArray?
+     */
     fun scheduleToXlsx(scheduleExcel: ScheduleExcel): ByteArray? {
         ByteArrayOutputStream().use { excelStream ->
+            val headerList = Scene.displayColumns().toTypedArray()
+
             val workbook = SXSSFWorkbook(10000)
             workbook.isCompressTempFiles = true
             val sheet: SXSSFSheet = workbook.createSheet()
-            val headerStyle = headerCellStyle(workbook)
 
-            var startRow = 5
+
+            var startRow = writeProject(workbook, sheet, scheduleExcel.project, 0, ExcelRange(0, headerList.size - 1))
+
+            val headerStyle = headerCellStyle(workbook)
             for ((date, scenes) in scheduleExcel.sceneShootMap) {
-                val headerList = Scene.displayColumns().toTypedArray()
                 val roundNextRow = writeRound(sheet, date, 1, headerStyle, startRow, ExcelRange(0, headerList.size - 1))
                 val sceneNextRow = writeScenes(sheet, scenes, headerList, headerStyle, roundNextRow)
                 startRow = sceneNextRow + 1
@@ -110,18 +136,7 @@ object ScheduleExcelMaker {
         }
     }
 
-    private fun headerCellStyle(workbook: SXSSFWorkbook): CellStyle {
-        val headerStyle = workbook.createCellStyle() as XSSFCellStyle
-        val headerFont = workbook.createFont()
-        headerFont.bold = true
 
-        headerStyle.fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
-        headerStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
-        headerStyle.borderBottom = BorderStyle.THIN
-        headerStyle.alignment = HorizontalAlignment.CENTER
-        headerStyle.verticalAlignment = VerticalAlignment.CENTER
-        return headerStyle
-    }
 
     fun convertToSnakeCase(input: String): String {
         return buildString {

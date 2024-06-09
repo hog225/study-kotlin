@@ -5,4 +5,12 @@ data class Project(
     val production: String,
     val scenario: String,
     val producer: String
-)
+) {
+
+    fun getHeaderAndValue() = listOf(
+        "연출" to production,
+        "극본" to scenario,
+        "프로듀서" to producer
+    )
+
+}

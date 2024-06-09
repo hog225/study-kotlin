@@ -33,7 +33,7 @@ class ScheduleService {
     }
 
     fun getRandomScenes(round: Int, maxSceneCount: Int): Map<Date, List<Scene>> {
-        val startDate = Date()
+        var startDate = Date()
         val randomEpisode = Random().nextInt(10) + 1
         val sceneMap = mutableMapOf<Date, List<Scene>>()
         for (r in 1..round) {
@@ -57,7 +57,8 @@ class ScheduleService {
                     shootingTime = 100L
                 )
             }.toList()
-            sceneMap[getNextDate(startDate)] = sMap
+            startDate = getNextDate(startDate)
+            sceneMap[startDate] = sMap
         }
         return sceneMap
     }

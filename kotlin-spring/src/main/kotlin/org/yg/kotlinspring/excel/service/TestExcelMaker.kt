@@ -3,6 +3,7 @@ package org.yg.kotlinspring.excel.service
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.ss.util.CellRangeAddress
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.yg.kotlinspring.excel.service.ExcellStyleHelper.fontAlignCellStyle
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.file.Files
@@ -10,24 +11,14 @@ import kotlin.io.path.Path
 
 
 object TestExcelMaker {
-    private const val TMP_DIRECTORY_NAME = "tmp"
+    const val TMP_DIRECTORY_NAME = "tmp"
 
-    private fun createTmpDirectory() {
+    fun createTmpDirectory() {
         if (!Files.exists(Path(TMP_DIRECTORY_NAME))) {
             Files.createDirectory(Path(TMP_DIRECTORY_NAME))
         }
     }
 
-    private fun fontAlignCellStyle(workbook: Workbook, fontSize: Short): CellStyle {
-        val cellStyle: CellStyle = workbook.createCellStyle()
-        val font: Font = workbook.createFont()
-        font.fontHeightInPoints = fontSize
-        font.bold = true
-        cellStyle.setFont(font)
-        cellStyle.alignment = HorizontalAlignment.CENTER // 가로 가운데 맞춤
-        cellStyle.verticalAlignment = VerticalAlignment.CENTER // 세로 가운데 맞춤
-        return cellStyle
-    }
     fun partMergedExcelFile() {
 
         val workbook: Workbook = XSSFWorkbook()
