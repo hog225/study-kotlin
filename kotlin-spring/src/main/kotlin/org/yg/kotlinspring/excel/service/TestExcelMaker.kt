@@ -3,7 +3,7 @@ package org.yg.kotlinspring.excel.service
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.ss.util.CellRangeAddress
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.yg.kotlinspring.excel.service.ExcellStyleHelper.fontAlignCellStyle
+import org.yg.kotlinspring.excel.service.ExcelStyleHelper.fontAlignCellStyle
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.file.Files

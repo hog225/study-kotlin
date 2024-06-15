@@ -68,6 +68,8 @@ chat-gpt:
 ```
 
 ## Excel Download
+- SXSSF 에서는 XSSFRichTextString 를 지원하지 않는것 같다. 
+- XSSF 는 메모리 이슈가 있을 수 있다. 
 
 ```bash
 curl --location 'http://localhost:9797/study-kotlin/v1/excel?round=4&maxSceneCount=5'

@@ -46,24 +46,24 @@ data class Scene(
 
     companion object {
         @JvmStatic
-        fun displayColumns(): List<String> {
+        fun displayColumnAndSize(): List<Pair<String, Int>> {
             return listOf(
-                "회차",
-                "씬번호",
-                "타임코드",
-                "촬영장소",
-                "대형촬영장소",
-                "촬영장소",
-                "캐릭터",
-                "서브캐릭터",
-                "의상",
-                "소품",
-                "메이크업",
-                "엑스트라",
-                "기타",
-                "SFX",
-                "총평",
-                "촬영시간",
+                "회차" to 5,
+                "씬번호" to 5,
+                "타임코드" to 5,
+                "촬영장소" to 10,
+                "대형촬영장소" to 10,
+                "촬영장소" to 10,
+                "캐릭터" to 10,
+                "서브캐릭터" to 10,
+                "의상" to 10,
+                "소품" to 10,
+                "메이크업" to 10,
+                "엑스트라" to 10,
+                "기타" to 10,
+                "SFX" to 10,
+                "총평" to 10,
+                "촬영시간" to 10,
             )
         }
     }
