@@ -2,13 +2,13 @@ package org.yg.kotlinspring.excel.service
 
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.ss.util.CellRangeAddress
-import org.apache.poi.xssf.streaming.SXSSFCell
-import org.apache.poi.xssf.streaming.SXSSFCreationHelper
 import org.apache.poi.xssf.streaming.SXSSFSheet
 import org.apache.poi.xssf.streaming.SXSSFWorkbook
 import org.apache.poi.xssf.usermodel.XSSFCellStyle
+import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFFont
-import org.apache.poi.xssf.usermodel.XSSFRichTextString
+import java.awt.Color
+import java.awt.Color.*
 
 
 object ExcelStyleHelper {
@@ -30,7 +30,10 @@ object ExcelStyleHelper {
         headerFont.bold = true
 
         headerStyle.setFont(headerFont)
-        headerStyle.fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
+        val rgb = byteArrayOf(244.toByte(), 204.toByte(), 204.toByte()) // 빨강색
+        headerStyle.setFillForegroundColor(XSSFColor(rgb, null))
+        //headerStyle.fillForegroundColor = IndexedColors.ROSE.index
+
         headerStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
         headerStyle.alignment = HorizontalAlignment.CENTER
         headerStyle.verticalAlignment = VerticalAlignment.CENTER
