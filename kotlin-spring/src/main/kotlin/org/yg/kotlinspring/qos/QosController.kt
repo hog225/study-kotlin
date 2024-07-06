@@ -1,12 +1,18 @@
 package org.yg.kotlinspring.qos
 
+
+import lombok.extern.log4j.Log4j2
+import lombok.extern.slf4j.Slf4j
+import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDateTime
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
+@Log4j2
 @RestController
 @RequestMapping("/study-kotlin/v1")
 class QosController(
@@ -15,6 +21,8 @@ class QosController(
 ) {
     private val lock = ReentrantLock()
     private val condition = lock.newCondition()
+    private val logger = KotlinLogging.logger {}
+
     @GetMapping("/resource")
     fun limitedResource(): CompletableFuture<String> {
         return CompletableFuture.supplyAsync {
@@ -33,14 +41,16 @@ class QosController(
 
     @GetMapping("/resource2")
     fun limitResourceOne(): String {
-        println("limitResourceOne")
-        if (lock.isLocked)
-            return "This is a rate-limited resource\n\r"
-        lock.lock()
-        Thread.sleep(2000)
-        lock.unlock();
-        return "hello ? \n\r"
-
+        try {
+            lock.lock()
+            logger.info { "lock acquired" }
+            val random = (Math.random() * 1000).toLong()
+            Thread.sleep(random)
+            logger.info("finished: $random")
+            return "hello ? \n\r"
+        } finally {
+            lock.unlock();
+        }
     }
 
     @GetMapping("/resource3")
